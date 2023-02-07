@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var showingAlert = false
     var body: some View {
         VStack {
             Button("Button 1") {}
@@ -20,13 +21,19 @@ struct ContentView: View {
                 .buttonStyle(.borderedProminent)
                 .tint(.mint)
             Button {
-                print("Button was tapped")
+                showingAlert = true
             } label: {
                 Text("Tap me")
                     .padding()
                     .foregroundColor(.white)
                     .background(.red)
                     .cornerRadius(10)
+                    .alert("Important message", isPresented: $showingAlert) {
+                        Button("Delete", role: .destructive) {}
+                        Button("Cancel", role: .cancel) {}
+                    } message: {
+                        Text("Please read this.")
+                    }
             }
             Button {
                 print("Edit button was tapped")
